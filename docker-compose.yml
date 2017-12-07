@@ -61,5 +61,5 @@ services:
       - VIRTUAL_HOST=samplewebsite.briggzay.me
       - VIRTUAL_NETWORK=nginx-proxy
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=sample.briggzay.me
+      - LETSENCRYPT_HOST=samplewebsite.briggzay.me
       - LETSENCRYPT_EMAIL=email@briggzay.me
