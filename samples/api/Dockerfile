@@ -1,7 +1,6 @@
 FROM mhart/alpine-node
 
-EXPOSE 3000:5000
-
+EXPOSE 3000
 
 RUN adduser -S app
 
