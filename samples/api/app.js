@@ -2,7 +2,7 @@ var express = require('express');
 var cors = require('cors');
 var skills = '[\n' +
     '  {\n' +
-    '    "title" :"UX",\n' +
+    '    "title" :"UX Skills",\n' +
     '    "text"  :"",\n' +
     '    "skills":[\n' +
     '      {\n' +
