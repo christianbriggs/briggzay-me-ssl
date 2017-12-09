@@ -38,6 +38,7 @@ If everything went well then you should now be able to access your website at th
 * To view logs run `docker-compose logs`.
 * To view the generated Nginx configuration run `docker exec -ti nginx cat /etc/nginx/conf.d/default.conf`
 
+
 ## How does it work
 
 The system consists of 4 main parts:
