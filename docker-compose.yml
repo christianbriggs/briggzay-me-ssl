@@ -40,7 +40,7 @@ services:
   api:
     restart: always
     image: api
-    build: ./samples/api
+    build: ./apps/api
     container_name: api
     environment:
       - VIRTUAL_HOST=api.briggzay.me,www.api.briggzay.me
@@ -52,7 +52,7 @@ services:
   website:
     restart: always
     image: website
-    build: ./samples/website
+    build: ./apps/website
     container_name: website
     volumes:
       - "./volumes/nginx-website/conf.d/:/etc/nginx/conf.d"
