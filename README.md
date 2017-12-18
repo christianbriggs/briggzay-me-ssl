@@ -13,9 +13,9 @@ Some of the configuration is derived from <https://github.com/fatk/docker-letsen
 ### Preparation
 * Clone the [repository](https://github.com/gilyes/docker-nginx-letsencrypt-sample) on the server pointed to by your domain. 
 * In `docker-compose.yml`: 
-  * Change the **VIRTUAL_HOST** and **LETSENCRYPT_HOST** entries from *sampleapi.briggzay.me* and *samplewebsite.briggzay.me* to your domains.
+  * Change the **VIRTUAL_HOST** and **LETSENCRYPT_HOST** entries from *api.briggzay.me* and *website.briggzay.me* to your domains.
   * Change **LETSENCRYPT_EMAIL** entries to the email address you want to be associated with the certificates. 
-* In `volumes/config/sample-website/config.js` change **apiUrl** to your API endpoint as set up in the previous point in `docker-compose.yml`.
+* In `volumes/config/website/config.js` change **apiUrl** to your API endpoint as set up in the previous point in `docker-compose.yml`.
 
 ### Running
 In the main directory run: 
@@ -27,7 +27,7 @@ This will perform the following steps:
 
 * Download the required images from Docker Hub ([nginx](https://hub.docker.com/_/nginx/), [docker-gen](https://hub.docker.com/r/jwilder/docker-gen/), [docker-letsencrypt-nginx-proxy-companion](https://hub.docker.com/r/jrcs/letsencrypt-nginx-proxy-companion/)).
 * Create containers from them.
-* Build and create containers for the two sites located in `sample-websites`.
+* Build and create containers for the two sites located in `websites`.
 * Start up the containers. 
   * *docker-letsencrypt-nginx-proxy-companion* inspects containers' metadata and tries to acquire certificates as needed (if successful then saving them in a volume shared with the host and the Nginx container).
   * *docker-gen* also inspects containers' metadata and generates the configuration file for the main Nginx reverse proxy
@@ -135,34 +135,34 @@ The container uses a volume shared with the host and the Nginx container to main
 It also mounts the Docker socket in order to inspect the other containers. See the security warning above in the docker-gen section about the risks of that.
 
 ### The sample website and the sample API 
-These two very simple samples are running in their own respective containers. They are defined in `docker-compose.yml` under the **sample-api** and **sample-website** service blocks: 
+These two very simple samples are running in their own respective containers. They are defined in `docker-compose.yml` under the **api** and **website** service blocks: 
 
 ```
 services:
   ...
 
-  sample-api:
+  api:
     restart: always
-    image: sample-api
+    image: api
     build: ./samples/api
-    container_name: sample-api
+    container_name: api
     environment:
-      - VIRTUAL_HOST=sampleapi.briggzay.me
+      - VIRTUAL_HOST=api.briggzay.me
       - VIRTUAL_NETWORK=nginx-proxy
       - VIRTUAL_PORT=3000
-      - LETSENCRYPT_HOST=sampleapi.briggzay.me
+      - LETSENCRYPT_HOST=api.briggzay.me
       - LETSENCRYPT_EMAIL=email@briggzay.me
 
-  sample-website:
+  website:
     restart: always
-    image: sample-website
+    image: website
     build: ./samples/website
-    container_name: sample-website
+    container_name: website
     volumes:
-      - "./volumes/nginx-sample-website/conf.d/:/etc/nginx/conf.d"
-      - "./volumes/config/sample-website/config.js:/usr/share/nginx/html/config.js"
+      - "./volumes/nginx-website/conf.d/:/etc/nginx/conf.d"
+      - "./volumes/config/website/config.js:/usr/share/nginx/html/config.js"
     environment:
-      - VIRTUAL_HOST=samplewebsite.briggzay.me
+      - VIRTUAL_HOST=website.briggzay.me
       - VIRTUAL_NETWORK=nginx-proxy
       - VIRTUAL_PORT=80
       - LETSENCRYPT_HOST=sample.briggzay.me
